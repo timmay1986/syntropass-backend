@@ -1,0 +1,45 @@
+{
+  "name": "syntropass-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/database/migrate.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@syntropass/crypto": "file:../../SYNTROPASS-CRYPTO",
+    "bcrypt": "^5",
+    "cookie-parser": "^1",
+    "cors": "^2",
+    "dotenv": "^16",
+    "drizzle-orm": "^0.38",
+    "express": "^4",
+    "express-rate-limit": "^7",
+    "helmet": "^8",
+    "jsonwebtoken": "^9",
+    "pg": "^8",
+    "uuid": "^11",
+    "zod": "^3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5",
+    "@types/cookie-parser": "^1",
+    "@types/cors": "^2",
+    "@types/express": "^5",
+    "@types/jsonwebtoken": "^9",
+    "@types/pg": "^8",
+    "@types/uuid": "^10",
+    "drizzle-kit": "^0.30",
+    "supertest": "^7",
+    "@types/supertest": "^6",
+    "tsx": "^4",
+    "typescript": "^5",
+    "vitest": "^3"
+  }
+}
