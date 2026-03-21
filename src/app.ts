@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { errorHandler } from './middleware/error-handler.js';
 import { apiLimiter } from './middleware/rate-limit.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
+import { vaultRoutes } from './modules/vault/vault.routes.js';
 
 export const app = express();
 
@@ -19,5 +20,6 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/vaults', vaultRoutes);
 
 app.use(errorHandler);
