@@ -104,6 +104,24 @@ export const auditLog = pgTable('audit_log', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const tokenPermEnum = pgEnum('token_perm', ['read', 'readwrite']);
+
+export const apiTokens = pgTable('api_tokens', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  tenantId: uuid('tenant_id').notNull().references(() => tenants.id),
+  userId: uuid('user_id').notNull().references(() => users.id),
+  name: varchar('name', { length: 255 }).notNull(),
+  tokenHash: varchar('token_hash', { length: 255 }).notNull(),
+  // Encrypted symmetric key for this token (encrypted with token-derived key)
+  encryptedSymKey: text('encrypted_sym_key').notNull(),
+  // Which vaults this token can access (null = all user's vaults)
+  vaultIds: jsonb('vault_ids'),  // string[] or null
+  permission: tokenPermEnum('permission').notNull().default('read'),
+  lastUsedAt: timestamp('last_used_at', { withTimezone: true }),
+  expiresAt: timestamp('expires_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
+
 export const itemTemplates = pgTable('item_templates', {
   id: uuid('id').primaryKey().defaultRandom(),
   tenantId: uuid('tenant_id').references(() => tenants.id),

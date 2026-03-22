@@ -15,6 +15,13 @@
       "when": 1774169665404,
       "tag": "0001_secret_nehzno",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774198309390,
+      "tag": "0002_strong_tigra",
+      "breakpoints": true
     }
   ]
 }
