@@ -13,7 +13,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@syntropass/crypto": "file:../../SYNTROPASS-CRYPTO",
+    "@syntropass/crypto": "github:timmay1986/syntropass-crypto",
     "bcrypt": "^5",
     "cookie-parser": "^1",
     "cors": "^2",
