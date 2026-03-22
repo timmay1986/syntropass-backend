@@ -5,11 +5,12 @@ RUN git config --global url."https://".insteadOf ssh://git@
 RUN git config --global url."https://github.com/".insteadOf git@github.com:
 WORKDIR /app
 COPY package.json package-lock.json ./
+ENV NODE_ENV=development
 RUN npm ci
 COPY src/ ./src/
 COPY drizzle/ ./drizzle/
 COPY tsconfig.json ./
-RUN npx tsc
+RUN ./node_modules/.bin/tsc
 
 FROM node:22-alpine
 
