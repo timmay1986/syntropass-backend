@@ -13,6 +13,7 @@ function asyncHandler(fn: (req: any, res: any, next: any) => Promise<any>) {
 const isTest = process.env.NODE_ENV === 'test';
 
 router.post('/register', ...(isTest ? [] : [authLimiter]), asyncHandler(authController.register));
+router.post('/prelogin', asyncHandler(authController.prelogin));
 router.post('/login', ...(isTest ? [] : [authLimiter]), asyncHandler(authController.login));
 router.post('/refresh', asyncHandler(authController.refresh));
 router.post('/logout', asyncHandler(authController.logout));

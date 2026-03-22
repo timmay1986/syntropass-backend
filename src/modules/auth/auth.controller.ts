@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { authService } from './auth.service.js';
-import { registerSchema, loginSchema } from './auth.types.js';
+import { registerSchema, loginSchema, preloginSchema } from './auth.types.js';
 import { AppError } from '../../middleware/error-handler.js';
 
 const REFRESH_COOKIE_OPTIONS = {
@@ -32,6 +32,12 @@ export const authController = {
       user: result.user,
       tenant: result.tenant,
     });
+  },
+
+  async prelogin(req: Request, res: Response) {
+    const input = preloginSchema.parse(req.body);
+    const result = await authService.prelogin(input.email, input.tenantSlug);
+    res.json(result);
   },
 
   async refresh(req: Request, res: Response) {

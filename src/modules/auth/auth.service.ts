@@ -93,6 +93,17 @@ export const authService = {
     return { accessToken, refreshToken };
   },
 
+  async prelogin(email: string, tenantSlug: string) {
+    const result = await authRepo.findUserByEmailAndTenant(email, tenantSlug);
+    if (!result) throw new AppError(404, 'User not found');
+    const { user } = result;
+    return {
+      kdfSalt: user.kdfSalt,
+      kdfMemory: user.kdfMemory,
+      kdfIterations: user.kdfIterations,
+    };
+  },
+
   async logout(refreshToken: string) {
     const hash = crypto.createHash('sha256').update(refreshToken).digest('hex');
     await authRepo.deleteRefreshToken(hash);

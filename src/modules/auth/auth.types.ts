@@ -19,5 +19,11 @@ export const loginSchema = z.object({
   authKeyHash: z.string().length(64),
 });
 
+export const preloginSchema = z.object({
+  email: z.string().email(),
+  tenantSlug: z.string(),
+});
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
+export type PreloginInput = z.infer<typeof preloginSchema>;
