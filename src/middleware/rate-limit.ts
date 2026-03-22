@@ -10,7 +10,7 @@ export const authLimiter = rateLimit({
 
 export const apiLimiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 100,
+  max: 1000,
   message: { error: 'Rate limit exceeded' },
   standardHeaders: true,
   legacyHeaders: false,
