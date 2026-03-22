@@ -80,8 +80,8 @@ export function requireWrite(req: Request, _res: Response, next: NextFunction): 
 // Middleware to check vault access for API tokens
 export function requireVaultAccess(req: Request, _res: Response, next: NextFunction): void {
   if (req.user?.isApiToken && req.user.tokenVaultIds) {
-    const vaultId = req.params.id;
-    if (vaultId && !req.user.tokenVaultIds.includes(vaultId)) {
+    const vaultId = req.params.id as string;
+    if (vaultId && !(req.user.tokenVaultIds as string[]).includes(vaultId)) {
       throw new AppError(403, 'API token does not have access to this vault');
     }
   }
