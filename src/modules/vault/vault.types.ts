@@ -7,7 +7,7 @@ export const createVaultSchema = z.object({
 });
 
 export const createItemSchema = z.object({
-  type: z.enum(['login', 'note', 'card', 'identity', 'custom']).default('login'),
+  type: z.enum(['login', 'note', 'card', 'identity', 'custom', 'server', 'database', 'api_credential', 'ssh_key', 'secure_note', 'password', 'document']).default('login'),
   encryptedData: z.string(),
   favorite: z.boolean().default(false),
 });

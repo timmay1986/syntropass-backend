@@ -5,7 +5,7 @@ import {
 
 export const planEnum = pgEnum('plan', ['free', 'team', 'business']);
 export const vaultTypeEnum = pgEnum('vault_type', ['personal', 'shared']);
-export const itemTypeEnum = pgEnum('item_type', ['login', 'note', 'card', 'identity', 'custom']);
+export const itemTypeEnum = pgEnum('item_type', ['login', 'note', 'card', 'identity', 'custom', 'server', 'database', 'api_credential', 'ssh_key', 'secure_note', 'password', 'document']);
 export const permissionEnum = pgEnum('permission', ['read', 'write', 'admin']);
 export const roleEnum = pgEnum('role', ['owner', 'admin', 'manager', 'user', 'readonly']);
 export const groupRoleEnum = pgEnum('group_role', ['admin', 'manager', 'member']);

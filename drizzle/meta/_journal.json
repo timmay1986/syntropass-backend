@@ -22,6 +22,13 @@
       "when": 1774198309390,
       "tag": "0002_strong_tigra",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1774199545813,
+      "tag": "0003_puzzling_korg",
+      "breakpoints": true
     }
   ]
 }
