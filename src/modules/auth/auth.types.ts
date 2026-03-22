@@ -10,6 +10,7 @@ export const registerSchema = z.object({
   encryptedPrivateKey: z.string(),
   kdfMemory: z.number().int().min(1024),
   kdfIterations: z.number().int().min(1),
+  kdfSalt: z.string().optional(),
 });
 
 export const loginSchema = z.object({

@@ -12,6 +12,7 @@ export function createTestUser(overrides: Record<string, any> = {}) {
     encryptedPrivateKey: '{"ciphertext":"dGVzdA==","nonce":"dGVzdA=="}',
     kdfMemory: 65536,
     kdfIterations: 3,
+    kdfSalt: 'dGVzdHNhbHQ=',
     ...overrides,
   };
 }

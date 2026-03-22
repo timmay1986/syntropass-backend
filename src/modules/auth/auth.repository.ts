@@ -20,6 +20,7 @@ export const authRepo = {
         encryptedPrivateKey: input.encryptedPrivateKey,
         kdfMemory: input.kdfMemory,
         kdfIterations: input.kdfIterations,
+        kdfSalt: input.kdfSalt || '',
         role: 'owner',
       }).returning();
 

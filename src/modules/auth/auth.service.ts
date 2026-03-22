@@ -30,6 +30,7 @@ function userResponse(user: any) {
     encryptedPrivateKey: user.encryptedPrivateKey,
     kdfMemory: user.kdfMemory,
     kdfIterations: user.kdfIterations,
+    kdfSalt: user.kdfSalt,
   };
 }
 

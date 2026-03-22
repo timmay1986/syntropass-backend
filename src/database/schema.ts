@@ -31,6 +31,7 @@ export const users = pgTable('users', {
   encryptedPrivateKey: text('encrypted_private_key').notNull(),
   kdfIterations: integer('kdf_iterations').notNull().default(3),
   kdfMemory: integer('kdf_memory').notNull().default(65536),
+  kdfSalt: text('kdf_salt').notNull().default(''),
   role: roleEnum('role').notNull().default('user'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });

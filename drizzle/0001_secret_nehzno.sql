@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "kdf_salt" text DEFAULT '' NOT NULL;
