@@ -8,6 +8,7 @@ import { authRoutes } from './modules/auth/auth.routes.js';
 import { vaultRoutes } from './modules/vault/vault.routes.js';
 import { tokenRoutes } from './modules/tokens/token.routes.js';
 import { tokenAuthRoutes } from './modules/tokens/token.auth.routes.js';
+import { sharingRoutes } from './modules/sharing/sharing.routes.js';
 
 export const app = express();
 
@@ -34,6 +35,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/vaults', vaultRoutes);
 app.use('/api/tokens', tokenRoutes);
+app.use('/api/sharing', sharingRoutes);
 app.use('/api/v1/token', tokenAuthRoutes);
 
 app.use(errorHandler);

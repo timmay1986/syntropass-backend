@@ -1,6 +1,6 @@
-import { eq, and, isNull, sql } from 'drizzle-orm';
+import { eq, and, isNull, sql, or } from 'drizzle-orm';
 import { db } from '../../database/client.js';
-import { vaults, vaultItems } from '../../database/schema.js';
+import { vaults, vaultItems, vaultShares } from '../../database/schema.js';
 import type { CreateVaultInput, CreateItemInput, UpdateItemInput } from './vault.types.js';
 
 export const vaultRepo = {
@@ -16,10 +16,28 @@ export const vaultRepo = {
   },
 
   async findVaultsByUser(tenantId: string, userId: string) {
-    return db
+    // Own vaults
+    const ownVaults = await db
       .select()
       .from(vaults)
       .where(and(eq(vaults.tenantId, tenantId), eq(vaults.ownerId, userId)));
+
+    // Shared vaults (via vault_shares)
+    const sharedResults = await db
+      .select({ vault: vaults, share: vaultShares })
+      .from(vaultShares)
+      .innerJoin(vaults, eq(vaultShares.vaultId, vaults.id))
+      .where(eq(vaultShares.granteeUserId, userId));
+
+    // Merge: own vaults + shared vaults (with encryptedKey from share)
+    const sharedVaults = sharedResults.map(r => ({
+      ...r.vault,
+      encryptedKey: r.share.encryptedVaultKey, // Use the share's encrypted key (encrypted for this user)
+      _shared: true,
+      _permission: r.share.permission,
+    }));
+
+    return [...ownVaults, ...sharedVaults];
   },
 
   async findVaultById(vaultId: string, tenantId: string) {

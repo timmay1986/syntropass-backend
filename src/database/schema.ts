@@ -33,6 +33,7 @@ export const users = pgTable('users', {
   kdfMemory: integer('kdf_memory').notNull().default(65536),
   kdfSalt: text('kdf_salt').notNull().default(''),
   role: roleEnum('role').notNull().default('user'),
+  defaultVaultId: uuid('default_vault_id'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
@@ -105,6 +106,19 @@ export const auditLog = pgTable('audit_log', {
 });
 
 export const tokenPermEnum = pgEnum('token_perm', ['read', 'readwrite']);
+export const inviteStatusEnum = pgEnum('invite_status', ['pending', 'accepted', 'declined']);
+
+export const vaultInvites = pgTable('vault_invites', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  vaultId: uuid('vault_id').notNull().references(() => vaults.id, { onDelete: 'cascade' }),
+  inviterId: uuid('inviter_id').notNull().references(() => users.id),
+  inviteeEmail: varchar('invitee_email', { length: 255 }).notNull(),
+  inviteeId: uuid('invitee_id').references(() => users.id), // null until user exists
+  permission: permissionEnum('permission').notNull().default('read'),
+  status: inviteStatusEnum('status').notNull().default('pending'),
+  encryptedVaultKey: text('encrypted_vault_key'), // set when accepted (encrypted with invitee's public key)
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+});
 
 export const apiTokens = pgTable('api_tokens', {
   id: uuid('id').primaryKey().defaultRandom(),
