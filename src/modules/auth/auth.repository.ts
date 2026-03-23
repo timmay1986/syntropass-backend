@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm';
+import { eq, and, or, ilike } from 'drizzle-orm';
 import { db } from '../../database/client.js';
 import { users, tenants, refreshTokens } from '../../database/schema.js';
 import type { RegisterInput } from './auth.types.js';

@@ -117,6 +117,7 @@ export const vaultInvites = pgTable('vault_invites', {
   permission: permissionEnum('permission').notNull().default('read'),
   status: inviteStatusEnum('status').notNull().default('pending'),
   encryptedVaultKey: text('encrypted_vault_key'), // set when accepted (encrypted with invitee's public key)
+  vaultName: varchar('vault_name', { length: 255 }), // plaintext vault name for display
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 });
 

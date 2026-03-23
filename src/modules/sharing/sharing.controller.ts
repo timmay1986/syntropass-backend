@@ -16,7 +16,7 @@ export const sharingController = {
     const invites = raw.map((r: any) => ({
       id: r.invite.id,
       vaultId: r.invite.vaultId,
-      vaultName: r.vault?.encryptedName || '',
+      vaultName: r.invite.vaultName || 'Shared Vault',
       inviterEmail: r.inviter?.email || '',
       permission: r.invite.permission,
       status: r.invite.status,

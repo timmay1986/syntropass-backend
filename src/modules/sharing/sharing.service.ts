@@ -13,6 +13,8 @@ export const sharingService = {
       inviteeEmail: input.email,
       inviteeId: invitee?.id || null,
       permission: input.permission,
+      encryptedVaultKey: input.encryptedVaultKey || null,
+      vaultName: input.vaultName || null,
     });
 
     return {

@@ -10,6 +10,8 @@ export const sharingRepo = {
     inviteeEmail: string;
     inviteeId: string | null;
     permission: 'read' | 'write' | 'admin';
+    encryptedVaultKey?: string | null;
+    vaultName?: string | null;
   }) {
     const [invite] = await db.insert(vaultInvites).values({
       vaultId: params.vaultId,
@@ -17,6 +19,8 @@ export const sharingRepo = {
       inviteeEmail: params.inviteeEmail,
       inviteeId: params.inviteeId,
       permission: params.permission,
+      encryptedVaultKey: params.encryptedVaultKey || null,
+      vaultName: params.vaultName || null,
     }).returning();
     return invite;
   },

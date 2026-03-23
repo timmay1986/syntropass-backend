@@ -4,6 +4,8 @@ export const inviteSchema = z.object({
   vaultId: z.string().uuid(),
   email: z.string().email(),
   permission: z.enum(['read', 'write', 'admin']).default('read'),
+  encryptedVaultKey: z.string().optional(),
+  vaultName: z.string().optional(),
 });
 
 export const respondInviteSchema = z.object({
