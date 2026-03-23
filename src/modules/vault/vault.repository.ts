@@ -49,6 +49,15 @@ export const vaultRepo = {
     return vault ?? null;
   },
 
+  async findVaultByIdAny(vaultId: string) {
+    const [vault] = await db
+      .select()
+      .from(vaults)
+      .where(eq(vaults.id, vaultId))
+      .limit(1);
+    return vault ?? null;
+  },
+
   async deleteVault(vaultId: string, tenantId: string) {
     await db.delete(vaults).where(and(eq(vaults.id, vaultId), eq(vaults.tenantId, tenantId)));
   },
