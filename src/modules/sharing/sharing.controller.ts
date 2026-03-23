@@ -60,6 +60,15 @@ export const sharingController = {
     res.json({ publicKey });
   },
 
+  // Find user by email (for sharing — returns userId + publicKey)
+  async findUserByEmail(req: Request, res: Response) {
+    const email = req.query.email as string;
+    if (!email) return res.status(400).json({ error: 'email query parameter required' });
+    const user = await sharingService.findUserByEmail(email, req.user!.tenantId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    res.json({ userId: user.id, publicKey: user.publicKey });
+  },
+
   // Set default vault
   async setDefaultVault(req: Request, res: Response) {
     const { vaultId } = setDefaultVaultSchema.parse(req.body);

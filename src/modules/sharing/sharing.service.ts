@@ -69,6 +69,10 @@ export const sharingService = {
     return sharingRepo.getUserPublicKey(userId);
   },
 
+  async findUserByEmail(email: string, tenantId: string) {
+    return sharingRepo.findUserByEmail(email, tenantId);
+  },
+
   async setDefaultVault(userId: string, vaultId: string) {
     await sharingRepo.setDefaultVault(userId, vaultId);
   },

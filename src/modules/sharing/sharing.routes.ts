@@ -26,6 +26,7 @@ router.delete('/vaults/:id/shares/:userId', asyncHandler(sharingController.revok
 router.get('/shared', asyncHandler(sharingController.getSharedVaults));
 
 // Public key (for encrypting vault key for recipient)
+router.get('/users/by-email', asyncHandler(sharingController.findUserByEmail));
 router.get('/users/:userId/public-key', asyncHandler(sharingController.getPublicKey));
 
 // Default vault
