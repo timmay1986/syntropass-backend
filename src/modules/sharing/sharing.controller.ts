@@ -37,8 +37,20 @@ export const sharingController = {
   // Get shares + invites for a vault (owner only)
   async getVaultShares(req: Request, res: Response) {
     const vaultId = req.params.id as string;
-    const result = await sharingService.getVaultShares(vaultId);
-    res.json(result);
+    const raw = await sharingService.getVaultShares(vaultId);
+    const shares = raw.shares.map((r: any) => ({
+      userId: r.user?.id || r.share?.granteeUserId,
+      email: r.user?.email || '',
+      permission: r.share?.permission || '',
+    }));
+    const invites = raw.invites.map((r: any) => ({
+      id: r.invite.id,
+      vaultId: r.invite.vaultId,
+      inviteeEmail: r.invite.inviteeEmail,
+      permission: r.invite.permission,
+      status: r.invite.status,
+    }));
+    res.json({ shares, invites });
   },
 
   // Get vaults shared with me
