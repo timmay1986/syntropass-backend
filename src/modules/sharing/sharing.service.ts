@@ -4,8 +4,8 @@ import type { InviteInput } from './sharing.types.js';
 
 export const sharingService = {
   async inviteToVault(tenantId: string, inviterId: string, input: InviteInput) {
-    // Find the invitee user (might not exist yet)
-    const invitee = await sharingRepo.findUserByEmail(input.email, tenantId);
+    // Find the invitee user cross-tenant (might not exist yet)
+    const invitee = await sharingRepo.findUserByEmailGlobal(input.email);
 
     const invite = await sharingRepo.createInvite({
       vaultId: input.vaultId,
@@ -69,8 +69,10 @@ export const sharingService = {
     return sharingRepo.getUserPublicKey(userId);
   },
 
-  async findUserByEmail(email: string, tenantId: string) {
-    return sharingRepo.findUserByEmail(email, tenantId);
+  async findUserByEmail(email: string, tenantId?: string) {
+    return tenantId
+      ? sharingRepo.findUserByEmail(email, tenantId)
+      : sharingRepo.findUserByEmailGlobal(email);
   },
 
   async setDefaultVault(userId: string, vaultId: string) {

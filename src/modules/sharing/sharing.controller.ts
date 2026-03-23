@@ -60,11 +60,11 @@ export const sharingController = {
     res.json({ publicKey });
   },
 
-  // Find user by email (for sharing — returns userId + publicKey)
+  // Find user by email (for sharing — returns userId + publicKey, cross-tenant)
   async findUserByEmail(req: Request, res: Response) {
     const email = req.query.email as string;
     if (!email) return res.status(400).json({ error: 'email query parameter required' });
-    const user = await sharingService.findUserByEmail(email, req.user!.tenantId);
+    const user = await sharingService.findUserByEmail(email);
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json({ userId: user.id, publicKey: user.publicKey });
   },

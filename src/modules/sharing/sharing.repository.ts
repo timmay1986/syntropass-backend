@@ -120,6 +120,13 @@ export const sharingRepo = {
     return user ?? null;
   },
 
+  async findUserByEmailGlobal(email: string) {
+    const [user] = await db.select().from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+    return user ?? null;
+  },
+
   async getUserPublicKey(userId: string) {
     const [user] = await db.select({ publicKey: users.publicKey }).from(users)
       .where(eq(users.id, userId)).limit(1);
