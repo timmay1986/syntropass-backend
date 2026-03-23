@@ -43,13 +43,15 @@ export const sharingController = {
       email: r.user?.email || '',
       permission: r.share?.permission || '',
     }));
-    const invites = raw.invites.map((r: any) => ({
-      id: r.invite.id,
-      vaultId: r.invite.vaultId,
-      inviteeEmail: r.invite.inviteeEmail,
-      permission: r.invite.permission,
-      status: r.invite.status,
-    }));
+    const invites = raw.invites
+      .filter((r: any) => r.invite.status === 'pending')
+      .map((r: any) => ({
+        id: r.invite.id,
+        vaultId: r.invite.vaultId,
+        inviteeEmail: r.invite.inviteeEmail,
+        permission: r.invite.permission,
+        status: r.invite.status,
+      }));
     res.json({ shares, invites });
   },
 
