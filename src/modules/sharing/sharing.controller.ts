@@ -12,7 +12,17 @@ export const sharingController = {
 
   // Get my pending invites
   async getInvites(req: Request, res: Response) {
-    const invites = await sharingService.getPendingInvites(req.user!.email, req.user!.userId);
+    const raw = await sharingService.getPendingInvites(req.user!.email, req.user!.userId);
+    const invites = raw.map((r: any) => ({
+      id: r.invite.id,
+      vaultId: r.invite.vaultId,
+      vaultName: r.vault?.encryptedName || '',
+      inviterEmail: r.inviter?.email || '',
+      permission: r.invite.permission,
+      status: r.invite.status,
+      encryptedVaultKey: r.invite.encryptedVaultKey || null,
+      createdAt: r.invite.createdAt,
+    }));
     res.json(invites);
   },
 
