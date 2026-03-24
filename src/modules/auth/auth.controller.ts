@@ -29,6 +29,7 @@ export const authController = {
     res.cookie('refreshToken', result.refreshToken, REFRESH_COOKIE_OPTIONS);
     res.json({
       accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
       user: result.user,
       tenant: result.tenant,
     });
@@ -41,11 +42,11 @@ export const authController = {
   },
 
   async refresh(req: Request, res: Response) {
-    const oldToken = req.cookies?.refreshToken;
+    const oldToken = req.cookies?.refreshToken || req.body?.refreshToken;
     if (!oldToken) throw new AppError(401, 'No refresh token');
     const result = await authService.refresh(oldToken);
     res.cookie('refreshToken', result.refreshToken, REFRESH_COOKIE_OPTIONS);
-    res.json({ accessToken: result.accessToken });
+    res.json({ accessToken: result.accessToken, refreshToken: result.refreshToken });
   },
 
   async logout(req: Request, res: Response) {
